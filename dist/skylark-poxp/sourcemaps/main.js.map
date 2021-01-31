@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.js"],"names":["define","poxp","PoxPlayer"],"mappings":";;;;;;;AAAAA,QACC,SACA,eACC,SAASC,EAAKC,GACf,OAAOD","file":"../main.js","sourcesContent":["define([\r\n\t\"./poxp\",\r\n\t\"./PoxPlayer\"\r\n],function(poxp,PoxPlayer){\r\n\treturn poxp;\r\n});"]}

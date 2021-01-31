@@ -1,0 +1,56 @@
+{
+  "name": "skylark-poxp",
+  "description": "A version of poxp that ported to running on skylarkjs",
+  "version": "0.9.0",
+  "keywords": [
+    "skylark",
+    "ui",
+    "bootstrap4"
+  ],
+  "homepage": "https://github.com/skylark-integration/skylark-poxp/",
+  "author": "Hudaokeji, Inc.",
+  "scripts": {
+    "build": "slib build ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skylark-integration/skylark-poxp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skylark-integration/skylark-poxp/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "skylark-langx": "git+https://github.com/skylark-langx/skylark-langx.git#master"
+  },
+  "files": [
+    "demo/",
+    "dist/",
+    "src/",
+    "skins/"
+  ],
+  "skylarkjs": {
+    "directories": {
+      "dependencies": "./node_modules"
+    },
+    "secondaries": {},
+    "build": {
+      "prepare": {
+        "texttojs": [
+          "html",
+          "json",
+          "css"
+        ],
+        "jsxtojs": false,
+        "es6toamd": false,
+        "cjstoamd": false
+      },
+      "bundles": {
+        "all": true
+      }
+    }
+  },
+  "engines": {
+    "node": ">=0.10.1"
+  }
+}
