@@ -1,6 +1,6 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	//draw canvas from json data
 	//				2018 wakufactory 
 	//
@@ -8,7 +8,6 @@ define([
 	// property str,src ,rect,x,y,width,height 
 	// styles radius,color,border,background,lineWidth,font,lineHeight,align,offsetx,offsety
 	//
-	//export {Json2Canvas}
 	class Json2Canvas {
 
 		constructor(can) {
@@ -23,7 +22,7 @@ define([
 				font:"20px sans-serif",
 				borderColor:"black",
 				textColor:"black",
-		//		backgroundColor:"white"
+				backgroundColor:"white"
 			}
 			this.class = {}
 			this.km = /[。、\.\-,)\]｝、〕〉》」』】〙〗〟’”｠»ゝゞーァィゥェォッャュョヮヵヶぁぃぅぇぉっゃゅょゎゕゖㇰㇱㇲㇳㇴㇵㇶㇷㇸㇹㇷ゚ㇺㇻㇼㇽㇾㇿ々〻‐゠–〜～?!‼⁇⁈⁉・:;\/]/
@@ -297,6 +296,6 @@ define([
 				})
 			})
 		}
-	}  //class Json2Canvas
-	return poxp.Json2Canvas = Json2Canvas;
+	}  //class Json2Canvas	
+	return pox.Json2Canvas = Json2Canvas;
 });

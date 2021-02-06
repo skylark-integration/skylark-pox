@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width" /> 
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="Polygon Explorer">
+<meta property="og:description" content="browser editor for WebGL">
+<meta property="og:url" content="http://wakufactory.jp/wgl/pox/">
+<meta property="og:image" content="http://wakufactory.jp/wgl/pox/pox_screen.jpg">
+<title>Polygon Explorer Editor</title>
+<script src="ga.js"></script>
+<script>
+</script>
+<style>
+p {
+	margin-left:2rem ;
+}
+h3 {
+	margin-left:1rem ;
+}
+#footer {
+	border-top:1px solid #888 ;
+}
+</style>
+</head>
+<body>
+<h1>Polygon Explorer Editor</h1>
+<h2>what is this</h2>
+<p>WebGLを使って3DCGシーンをブラウザ上でソースレベルプログラミングできるツールです。</p>
+<p>javascriptとhtmlのみで作られているのでサーバ選ばず動作します。ブラウザ側の対応はWebGLが動作するモダンブラウザです(除くIE)</p>
+<p>モデルを用意するJavascriptと、バーテックスシェーダ、フラグメントシェーダのそれぞれのGLSLを編集するエディタと、その実行結果が反映されるプレビュー画面からなります。<br/>
+エディタタブでは、APPLYボタンかCOMMAND(CTRL)+Sで実行され結果が反映されます。エラーがある場合は下の領域に表示されます。<br/>
+プレビュー画面ではマウスで視点を移動して眺めることができます。<br/>
+編集したソースはまとめてJSONとして、ローカルファイルに保存、読み込みすることができます。<br/>
+また、プレイヤーを使うと、このJSONファイルを読み込んで再生ページを作成することができます。<br/>
+プレビュー、プレイヤーではステレオ表示(平行法)を選べます。スマフォではVRモードとして、ジャイロによるカメラ視点の移動に対応します。<br/>
+</p>
+<p>モデリングのjavascriptは、基本的にVBOのバッファとシェーダのUniformの値をデータとして用意します。WebGLのレンダリングパイプラインに対して薄いフレームワークになってるので効率良い利用が可能です。<br/>
+<p>まだできることは限定的ですが、ジェネラティブなモデリングやシェーディングの実験やプロトタイピングに使えるのではないかと思います。<br/>
+ドキュメント未整備ですが、とりあえず、サンプルを見てみてください。</p>
+
+<p>Qiitaに解説を書きました。<a href="https://qiita.com/wakufactory/items/bb61a28b4bdec6a5a15b">こちら</a>もご覧ください。</p>
+
+<img src="pox_screen.jpg"/>
+
+</p>
+
+<h2>samples</h2>
+<ul>
+<li>sample_basic 基本的なプリミティブのみのシンプルサンプル。<a href="view.html?sample/sample_basic.json">VIEW</a> <a href="poxe.html?sample/sample_basic.json" target="edit">EDIT</a></li>
+
+<li>sample_objs 使えるオブジェクト一覧 <a href="view.html?sample/sample_objs.json">VIEW</a> <a href="poxe.html?sample/sample_objs.json" target="edit">EDIT</a></li>
+
+
+<li>sample_instancing インスタンシングでブロックを沢山並べるサンプル。<a href="view.html?sample/sample_instancing.json">VIEW</a> <a href="poxe.html?sample/sample_instancing.json" target="edit">EDIT</a></li>
+
+<li>sample_texture テクスチャの使い方。 <a href="view.html?sample/sample_texture.json">VIEW</a> <a href="poxe.html?sample/sample_texture.json" target="edit">EDIT</a></li>
+
+<li>sample_objfile .objファイルのロード(ジオメトリのみ)<a href="view.html?sample/sample_objfile.json">VIEW</a> <a href="poxe.html?sample/sample_objfile.json" target="edit">EDIT</a></li>
+
+<li>sample_canvasTexture オフスクリーンcanvasでテクスチャを作る。 <a href="view.html?sample/sample_canvasTexture.json">VIEW</a> <a href="poxe.html?sample/sample_canvasTexture.json" target="edit">EDIT</a></li>
+
+
+</ul>
+
+<h2>resource</h2>
+<p> <a href="https://github.com/wakufactory/pox">github</a></p>
+<h3>files</h3>
+<p>
+<ul>
+	<li>poxe.html : Editor</li>
+	<li>view.html : Viewer</li>
+	<li>js/poxplayer.js : PoxPlayer Module</li>
+	<li>js/WWG.js : WebGL wrapper</li>
+	<li>js/WWModel.js : model library for WWG</li>
+	<li>js/CanvasMatirx.js : Matrix calc lib</li>
+	<li>js/Pointer.js : Mouse and touch handle</li>
+	<li>js/WBind.js : Binding lib</li>
+	<li>js/poxp_all.js : All together above JS files</li>
+</ul>
+</p>
+<div id=footer>
+contact to twitter: <a href="http://twitter.com/wakufactory">@wakufactory</a>
+</div>
+</body>

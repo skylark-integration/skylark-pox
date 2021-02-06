@@ -1,1 +1,1 @@
-{"version":3,"sources":["main.js"],"names":["define","poxp","PoxPlayer"],"mappings":";;;;;;;AAAAA,QACC,SACA,eACC,SAASC,EAAKC,GACf,OAAOD","file":"../main.js","sourcesContent":["define([\r\n\t\"./poxp\",\r\n\t\"./PoxPlayer\"\r\n],function(poxp,PoxPlayer){\r\n\treturn poxp;\r\n});"]}
+{"version":3,"sources":["main.js"],"names":["define","pox","PoxPlayer"],"mappings":";;;;;;;AAAAA,QACC,QACA,WACA,aACC,SAASC,EAAIC,GACd,OAAOD","file":"../main.js","sourcesContent":["define([\r\n\t\"./pox\",\r\n\t\"./Player\",\r\n\t\"./WWModel\"\r\n],function(pox,PoxPlayer){\r\n\treturn pox;\r\n});"]}

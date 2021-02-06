@@ -1,6 +1,6 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	//WabAudio wrapper
 	//  by wakufactory 
 	var WAS = {
@@ -240,5 +240,6 @@ define([
 		},intv);	
 	}
 
-	return poxp.WAS = WAS;
+
+	return pox.WAS = WAS;
 });

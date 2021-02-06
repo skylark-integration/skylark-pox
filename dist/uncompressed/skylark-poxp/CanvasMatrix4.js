@@ -1,6 +1,6 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
     /*
      * Copyright (C) 2009 Apple Inc. All Rights Reserved.
      *
@@ -72,12 +72,12 @@ define([
     */
 
     var CanvasMatrix4 = function(m) {
-    	if(m!=undefined && m.name == "Float32Array") {
-    		this.buf = m ;
-    		return this ;
-    	}
-    	this.buf = new Float32Array(16)
-    	this.matrix = null
+        if(m!=undefined && m.name == "Float32Array") {
+            this.buf = m ;
+            return this ;
+        }
+        this.buf = new Float32Array(16)
+        this.matrix = null
         if (typeof m == 'object') {
             if ("length" in m && m.length >= 16) {
                 this.load(m);
@@ -91,7 +91,8 @@ define([
         this.makeIdentity();
         return this ;
     }
-    CanvasMatrix4.RAD = Math.PI / 180 
+    CanvasMatrix4.RAD = pox.RAD;
+
     CanvasMatrix4.prototype.load = function()
     {
         if (arguments.length == 1 && typeof arguments[0] == 'object') {
@@ -164,8 +165,8 @@ define([
         return this.buf
     }
     CanvasMatrix4.prototype.initmatrix = function() {
-    	if(!this.matrix) this.matrix = new CanvasMatrix4 
-    	this.matrix.makeIdentity() 
+        if(!this.matrix) this.matrix = new CanvasMatrix4 
+        this.matrix.makeIdentity() 
         return this ;
     }
     CanvasMatrix4.prototype.makeIdentity = function()
@@ -227,7 +228,7 @@ define([
         // then the inverse matrix is not unique.
         var det = this._determinant4x4();
 
-        if (Math.abs(det) < 1e-32)
+        if (Math.abs(det) < 1e-8)
             return null;
 
         this._makeAdjoint();
@@ -257,9 +258,9 @@ define([
 
     CanvasMatrix4.prototype.translate = function(x,y,z)
     {
-    	if(Array.isArray(x)|| x instanceof Float32Array) {
-    		y = x[1]; z = x[2]; x = x[0];
-    	}
+        if(Array.isArray(x)|| x instanceof Float32Array) {
+            y = x[1]; z = x[2]; x = x[0];
+        }
         if (x == undefined)
             x = 0;
             if (y == undefined)
@@ -280,9 +281,9 @@ define([
 
     CanvasMatrix4.prototype.scale = function(x,y,z)
     {
-    	if(Array.isArray(x)|| x instanceof Float32Array) {
-    		y = x[1]; z = x[2]; x = x[0];
-    	}
+        if(Array.isArray(x)|| x instanceof Float32Array) {
+            y = x[1]; z = x[2]; x = x[0];
+        }
         if (x == undefined)
             x = 1;
         if (z == undefined) {
@@ -311,9 +312,9 @@ define([
     CanvasMatrix4.prototype.rotate = function(angle,x,y,z)
     {
         if(angle==0) return this 
-     	if(Array.isArray(x)|| x instanceof Float32Array) {
-    		y = x[1]; z = x[2]; x = x[0];
-    	}
+        if(Array.isArray(x)|| x instanceof Float32Array) {
+            y = x[1]; z = x[2]; x = x[0];
+        }
         // angles are in degrees. Switch to radians
         angle = angle * CanvasMatrix4.RAD ;
         
@@ -341,18 +342,18 @@ define([
             this.matrix.buf[4] = -2 * sinA * cosA;
             this.matrix.buf[5] = 1 - 2 * sinA2;
         } else {
-    	    // normalize
-    	    var length = Math.hypot(x,y,z);
-    	    if (length == 0) {
-    	        // bad vector, just use something reasonable
-    	        x = 0;
-    	        y = 0;
-    	        z = 1;
-    	    } else if (length != 1) {
-    	        x /= length;
-    	        y /= length;
-    	        z /= length;
-    	    }
+            // normalize
+            var length = Math.hypot(x,y,z);
+            if (length == 0) {
+                // bad vector, just use something reasonable
+                x = 0;
+                y = 0;
+                z = 1;
+            } else if (length != 1) {
+                x /= length;
+                y /= length;
+                z /= length;
+            }
             var x2 = x*x;
             var y2 = y*y;
             var z2 = z*z;
@@ -546,8 +547,8 @@ define([
     {
         var right = width/2;
         var left = -right;
-    	var top = right / aspect ;
-    	var bottom = -top ;
+        var top = right / aspect ;
+        var bottom = -top ;
         this.ortho(left, right, bottom, top, zNear, zFar);
         return this ;
     }
@@ -569,14 +570,14 @@ define([
         }
 
         // X vector = Y cross Z
-        var xx =  upy * zz - upz * zy;
-        var xy = -upx * zz + upz * zx;
-        var xz =  upx * zy - upy * zx;
+        xx =  upy * zz - upz * zy;
+        xy = -upx * zz + upz * zx;
+        xz =  upx * zy - upy * zx;
 
         // Recompute Y = Z cross X
-        var yx = zy * xz - zz * xy;
-        var yy = -zx * xz + zz * xx;
-        var yz = zx * xy - zy * xx;
+        yx = zy * xz - zz * xy;
+        yy = -zx * xz + zz * xx;
+        yz = zx * xy - zy * xx;
 
         // cross product gives area of parallelogram, which is < 1.0 for
         // non-perpendicular unit-length vectors; so normalize x, y here
@@ -703,126 +704,126 @@ define([
 
     ////utils 
     //vec3 operations
-    	CanvasMatrix4.V3add = function() {
-    		let x=0,y=0,z=0 ;
-    		for(let i=0;i<arguments.length;i++) {
-    			x += arguments[i][0] ;y += arguments[i][1] ;z += arguments[i][2] ;
-    		}
-    		return [x,y,z] ;
-    	}
-    	CanvasMatrix4.V3sub = function() {
-    		let x=arguments[0][0],y=arguments[0][1],z=arguments[0][2] ;
-    		for(let i=1;i<arguments.length;i++) {
-    			x -= arguments[i][0] ;y -= arguments[i][1] ;z -= arguments[i][2] ;
-    		}
-    		return [x,y,z] ;
-    	}
-    	CanvasMatrix4.V3inv = function(v) {
-    		return [-v[0],-v[1],-v[2]] ;
-    	}
-    	CanvasMatrix4.V3len = function(v) {
-    		return Math.hypot(v[0],v[1],v[2]) ;
-    	}
-    	CanvasMatrix4.V3norm = function(v,s) {
-    		const l = CanvasMatrix4.V3len(v) ;
-    		if(s===undefined) s = 1 ;
-    		return (l==0)?[0,0,0]:[v[0]*s/l,v[1]*s/l,v[2]*s/l] ;
-    	}
-    	CanvasMatrix4.V3mult = function(v,s) {
-    		return [v[0]*s,v[1]*s,v[2]*s] ;
-    	}
-    	CanvasMatrix4.V3dot = function(v1,v2) {
-    		return v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2] ;
-    	}
-    	CanvasMatrix4.V3cross = function(v1,v2) {
-    		return [	
-    			v1[1]*v2[2] - v1[2] * v2[1],
-    			v1[2]*v2[0] - v1[0] * v2[2],
-    			v1[0]*v2[1] - v1[1] * v2[0] 
-    		]
-    	}
+        CanvasMatrix4.V3add = function() {
+            let x=0,y=0,z=0 ;
+            for(let i=0;i<arguments.length;i++) {
+                x += arguments[i][0] ;y += arguments[i][1] ;z += arguments[i][2] ;
+            }
+            return [x,y,z] ;
+        }
+        CanvasMatrix4.V3sub = function() {
+            let x=arguments[0][0],y=arguments[0][1],z=arguments[0][2] ;
+            for(let i=1;i<arguments.length;i++) {
+                x -= arguments[i][0] ;y -= arguments[i][1] ;z -= arguments[i][2] ;
+            }
+            return [x,y,z] ;
+        }
+        CanvasMatrix4.V3inv = function(v) {
+            return [-v[0],-v[1],-v[2]] ;
+        }
+        CanvasMatrix4.V3len = function(v) {
+            return Math.hypot(v[0],v[1],v[2]) ;
+        }
+        CanvasMatrix4.V3norm = function(v,s) {
+            const l = CanvasMatrix4.V3len(v) ;
+            if(s===undefined) s = 1 ;
+            return (l==0)?[0,0,0]:[v[0]*s/l,v[1]*s/l,v[2]*s/l] ;
+        }
+        CanvasMatrix4.V3mult = function(v,s) {
+            return [v[0]*s,v[1]*s,v[2]*s] ;
+        }
+        CanvasMatrix4.V3dot = function(v1,v2) {
+            return v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2] ;
+        }
+        CanvasMatrix4.V3cross = function(v1,v2) {
+            return [    
+                v1[1]*v2[2] - v1[2] * v2[1],
+                v1[2]*v2[0] - v1[0] * v2[2],
+                v1[0]*v2[1] - v1[1] * v2[0] 
+            ]
+        }
 
     //multiple vector
     CanvasMatrix4.prototype.multVec4 = function(x,y,z,w) {
-    	if(Array.isArray(x)|| x instanceof Float32Array) {
-    		y = x[1]; z = x[2];w=x[3]; x = x[0];
-    	}
-    	var xx = this.buf[0]*x + this.buf[4]*y + this.buf[8]*z + this.buf[12]*w ;
-    	var yy = this.buf[1]*x + this.buf[5]*y + this.buf[9]*z + this.buf[13]*w ;
-    	var zz = this.buf[2]*x + this.buf[6]*y + this.buf[10]*z + this.buf[14]*w ;
-    	var ww = this.buf[3]*x + this.buf[7]*y + this.buf[11]*z + this.buf[15]*w ;
-    	return [xx,yy,zz,ww] ;
+        if(Array.isArray(x)|| x instanceof Float32Array) {
+            y = x[1]; z = x[2];w=x[3]; x = x[0];
+        }
+        var xx = this.buf[0]*x + this.buf[4]*y + this.buf[8]*z + this.buf[12]*w ;
+        var yy = this.buf[1]*x + this.buf[5]*y + this.buf[9]*z + this.buf[13]*w ;
+        var zz = this.buf[2]*x + this.buf[6]*y + this.buf[10]*z + this.buf[14]*w ;
+        var ww = this.buf[3]*x + this.buf[7]*y + this.buf[11]*z + this.buf[15]*w ;
+        return [xx,yy,zz,ww] ;
     }
 
     //shorthand class method 
     CanvasMatrix4.rotAndTrans = function(rx,ry,rz,tx,ty,tz) {
-    	var m = new CanvasMatrix4()
-    	if(rx!=0) m.rotate(rx,1,0,0) 
-    	if(ry!=0) m.rotate(ry,0,1,0)
-    	if(rz!=0) m.rotate(rz,0,0,1)
-    	m.translate(tx,ty,tz)
-    	return m 
+        var m = new CanvasMatrix4()
+        if(rx!=0) m.rotate(rx,1,0,0) 
+        if(ry!=0) m.rotate(ry,0,1,0)
+        if(rz!=0) m.rotate(rz,0,0,1)
+        m.translate(tx,ty,tz)
+        return m 
     }
 
     //quaternion to matrix
     CanvasMatrix4.prototype.q2m = function(x,y,z,w) {
-    	if(Array.isArray(x) || x instanceof Float32Array) {
-    		y = x[1]; z = x[2];w=x[3]; x = x[0];
-    	}
-    	var x2 = x*x; var y2=y*y; var z2=z*z ;
-    	this.buf[0] = 1- 2*(y2 + z2) ;
-    	this.buf[1] = 2*(x*y + w*z) ;
-    	this.buf[2] = 2*(x*z - w*y) ;
-    	this.buf[3] = 0 ;
-    	this.buf[4] = 2*(x*y - w*z) ;
-    	this.buf[5] = 1-2*(x2 + z2) ;
-    	this.buf[6] = 2*(y*z + w*x) ;
-    	this.buf[7] = 0 ;
-    	this.buf[8] = 2*(x*z + w*y) ;
-    	this.buf[9] = 2*(y*z - w*x) ;
-    	this.buf[10] = 1-2*(x2 + y2) ;
-    	this.buf[11] = 0 ; this.buf[12]=0; this.buf[13]=0; this.buf[14]=0;this.buf[15]=1;
-    	return this 
+        if(Array.isArray(x) || x instanceof Float32Array) {
+            y = x[1]; z = x[2];w=x[3]; x = x[0];
+        }
+        var x2 = x*x; var y2=y*y; var z2=z*z ;
+        this.buf[0] = 1- 2*(y2 + z2) ;
+        this.buf[1] = 2*(x*y + w*z) ;
+        this.buf[2] = 2*(x*z - w*y) ;
+        this.buf[3] = 0 ;
+        this.buf[4] = 2*(x*y - w*z) ;
+        this.buf[5] = 1-2*(x2 + z2) ;
+        this.buf[6] = 2*(y*z + w*x) ;
+        this.buf[7] = 0 ;
+        this.buf[8] = 2*(x*z + w*y) ;
+        this.buf[9] = 2*(y*z - w*x) ;
+        this.buf[10] = 1-2*(x2 + y2) ;
+        this.buf[11] = 0 ; this.buf[12]=0; this.buf[13]=0; this.buf[14]=0;this.buf[15]=1;
+        return this 
     }
     CanvasMatrix4.v2q = function(rot,x,y,z) {
-    	if(Array.isArray(x) || x instanceof Float32Array) {
-    		y = x[1]; z = x[2]; x = x[0];
-    	}
-    	let l = x*x + y*y + z*z 
-    	if(l==0) return [0,0,0,1]
-    	if(l!=1) {
-    		l = Math.sqrt(l) 
-    		x /= l ; y /=l ; z /= l
-    	}
-    	rot = rot *CanvasMatrix4.RAD /2 
-    	let sr = Math.sin(rot) 
-    	return [x*sr,y*sr,z*sr,Math.cos(rot)]
+        if(Array.isArray(x) || x instanceof Float32Array) {
+            y = x[1]; z = x[2]; x = x[0];
+        }
+        let l = x*x + y*y + z*z 
+        if(l==0) return [0,0,0,1]
+        if(l!=1) {
+            l = Math.sqrt(l) 
+            x /= l ; y /=l ; z /= l
+        }
+        rot = rot *CanvasMatrix4.RAD /2 
+        let sr = Math.sin(rot) 
+        return [x*sr,y*sr,z*sr,Math.cos(rot)]
     }
     CanvasMatrix4.e2q = function(x,y,z) {
-    	if(Array.isArray(x) || x instanceof Float32Array) {
-    		y = x[1]; z = x[2]; x = x[0];
-    	}
-    	x *= CanvasMatrix4.RAD*0.5
-    	y *= CanvasMatrix4.RAD*0.5
-    	z *= CanvasMatrix4.RAD*0.5
-    	let c1 = Math.cos(x),c2=Math.cos(y),c3=Math.cos(z)
-    	let s1 = Math.sin(x),s2=Math.sin(y),s3=Math.sin(z)
-    	// order YXZ
-    	let qx = s1 * c2 * c3 + c1 * s2 * s3;
+        if(Array.isArray(x) || x instanceof Float32Array) {
+            y = x[1]; z = x[2]; x = x[0];
+        }
+        x *= CanvasMatrix4.RAD*0.5
+        y *= CanvasMatrix4.RAD*0.5
+        z *= CanvasMatrix4.RAD*0.5
+        let c1 = Math.cos(x),c2=Math.cos(y),c3=Math.cos(z)
+        let s1 = Math.sin(x),s2=Math.sin(y),s3=Math.sin(z)
+        // order YXZ
+        let qx = s1 * c2 * c3 + c1 * s2 * s3;
         let qy = c1 * s2 * c3 - s1 * c2 * s3;
         let qz = c1 * c2 * s3 - s1 * s2 * c3;
         let qw = c1 * c2 * c3 + s1 * s2 * s3;
         return [qx,qy,qz,qw]
     }
     CanvasMatrix4.qMult = function(q1,q2) {
-    	let w = q1[3] * q2[3] -(q1[0]*q2[0]+q1[1]*q2[1]+q1[2]*q2[2])
-    	let x = q1[1]*q2[2] - q1[2] * q2[1] + q1[3]*q2[0] + q2[3]*q1[0]
-    	let y = q1[2]*q2[0] - q1[0] * q2[2] + q1[3]*q2[1] + q2[3]*q1[1]
-     	let z = q1[0]*q2[1] - q1[1] * q2[0] + q1[3]*q2[2] + q2[3]*q1[2]
-    	return [x,y,z,w]	
+        let w = q1[3] * q2[3] -(q1[0]*q2[0]+q1[1]*q2[1]+q1[2]*q2[2])
+        let x = q1[1]*q2[2] - q1[2] * q2[1] + q1[3]*q2[0] + q2[3]*q1[0]
+        let y = q1[2]*q2[0] - q1[0] * q2[2] + q1[3]*q2[1] + q2[3]*q1[1]
+        let z = q1[0]*q2[1] - q1[1] * q2[0] + q1[3]*q2[2] + q2[3]*q1[2]
+        return [x,y,z,w]    
     }
 
-    return CanvasMatrix4;
+    return pox.CanvasMatrix4 = CanvasMatrix4;
 });
     	
 

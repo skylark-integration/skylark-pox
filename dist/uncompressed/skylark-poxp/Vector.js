@@ -1,28 +1,35 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	class Vector extends Array {
 		constructor(...args) {
 			let v = args 
 			if(Array.isArray(args[0])) v = args[0]
 			super(...v)
+			this._setxyz()
 		}
-		set x(v) {this[0] = v}
-		set y(v) {this[1] = v}
-		set z(v) {this[2] = v}
-		set w(v) {this[3] = v}
-		set r(v) {this[0] = v}
-		set g(v) {this[1] = v}
-		set b(v) {this[2] = v}
-		set a(v) {this[3] = v}
-		get x() { return this[0]}
-		get y() { return this[1]}
-		get z() { return this[2]}
-		get w() { return this[3]}
-		get r() { return this[0]}
-		get g() { return this[1]}
-		get b() { return this[2]}
-		get a() { return this[3]}
+		_setxyz() {
+			this.x = this[0]
+			if(this[1]!==undefined) this.y = this[1]
+			if(this[2]!==undefined) this.z = this[2] 
+			if(this[3]!==undefined) this.w = this[3]	
+		}
+		set x(v) {this._x = v,this[0] = v}
+		set y(v) {this._y = v,this[1] = v}
+		set z(v) {this._z = v,this[2] = v}
+		set w(v) {this._w = v,this[3] = v}
+		set r(v) {this._x = v,this[0] = v}
+		set g(v) {this._y = v,this[1] = v}
+		set b(v) {this._z = v,this[2] = v}
+		set a(v) {this._w = v,this[3] = v}
+		get x() { return this._x}
+		get y() { return this._y}
+		get z() { return this._z}
+		get w() { return this._w}
+		get r() { return this._x}
+		get g() { return this._y}
+		get b() { return this._z}
+		get a() { return this._w}
 	//retrun new vector
 		get xy() { return new Vector(this[0],this[1])}
 		get yx() { return new Vector(this[1],this[0])}
@@ -115,5 +122,5 @@ define([
 		}
 	}
 
-	return poxp.Vector = Vector; 
+	return pox.Vector = Vector; 
 });

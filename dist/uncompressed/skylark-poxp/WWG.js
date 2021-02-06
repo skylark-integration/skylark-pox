@@ -1,6 +1,6 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	//WWG Simple WebGL wrapper library
 	// Version 0.9 
 	// 2016-2017 wakufactory.jp 
@@ -143,7 +143,6 @@ define([
 		this.env = {} ;
 	//	this.obuf = [] ;
 		this.modelCount = 0 ;
-		this.modelId = 0 
 	//	this.modelHash = {} ;
 	}
 	WWG.prototype.Render.prototype.setUnivec = function(uni,value) {
@@ -570,7 +569,6 @@ define([
 			
 					//set model 
 					for(let i =0;i<data.model.length;i++) {
-						data.model[i].id = ++this.modelId 
 						data.model[i].obuf = this.setObj( data.model[i],true) ;
 	//					if(data.model[i].name) this.modelHash[data.model[i].name] = data.model[i] ;
 					}
@@ -614,7 +612,7 @@ define([
 		let gl = this.gl
 		let geo = obj.geo ;
 		let inst = obj.inst ;
-		let ret = {} ;
+		ret = {} ;
 		let vao
 		if(this.wwg.ext_vao) {
 			vao = this.wwg.vao_create() ;
@@ -729,7 +727,6 @@ define([
 			this.data.model[idx].obuf = this.setObj(model,true) ;
 			return 
 		}
-		model.id = ++this.modelId
 		this.data.model.push(model) ;
 		this.data.model[this.data.model.length-1].obuf = this.setObj(model,true) ;
 		this.modelCount++
@@ -746,7 +743,7 @@ define([
 		return true 
 	}
 	// update attribute buffer 
-	WWG.prototype.Render.prototype.updateModel = function(name,mode,buf,sub=null) {
+	WWG.prototype.Render.prototype.updateModel = function(name,mode,buf,subflag=true) {
 		let idx = this.getModelIdx(name) ;
 		let obuf = this.data.model[idx].obuf ;
 		switch(mode) {
@@ -757,11 +754,10 @@ define([
 				this.gl.bindBuffer(this.gl.ARRAY_BUFFER, obuf.inst) ;
 				break ;
 		}
-		if(sub) 
-			this.gl.bufferSubData(this.gl.ARRAY_BUFFER, sub.dofs*4, this.f32Array(buf),sub.sofs,sub.count)	
-		else 
+		if(subflag) 
 			this.gl.bufferSubData(this.gl.ARRAY_BUFFER, 0, this.f32Array(buf))	
-
+		else
+			this.gl.bufferData(this.gl.ARRAY_BUFFER, this.f32Array(buf),this.gl.DYNAMIC_DRAW ) ;
 	}
 	WWG.prototype.Render.prototype.updateModelInstance = function(name,buf,count) {
 		let idx = this.getModelIdx(name) ;
@@ -941,6 +937,5 @@ define([
 		}
 		return true ;
 	}
-
-	return poxp.WWG = WWG;
+	return pox.WWG = WWG;
 });

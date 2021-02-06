@@ -1,10 +1,10 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	//WBind 
 	// license MIT
 	// 2017 wakufactory 
-	var WBind = { } 
+	WBind = { } 
 
 	WBind.create = function(init) {
 		var obj = new WBind.obj ;
@@ -48,7 +48,6 @@ define([
 			}
 		}
 		if(e.type=="range") v = parseFloat(v) ;
-		if(e.type=="file") v = e.files 
 		return v ;		
 	}
 
@@ -187,7 +186,6 @@ define([
 						self._check[name][this.value] = this.checked ;
 						val = _getprop(name);
 					}
-
 					else val = this.value ;
 					self.prop[name] = val ;
 					if(self._func[name].get) val = self._func[name].get(val) ;
@@ -265,7 +263,6 @@ define([
 					}
 				}			
 			}
-			else if(e.type=="file") ;
 			else e.value = v ;	
 		}
 		return this ;
@@ -451,6 +448,5 @@ define([
 			}
 		}
 	}
-
-	return poxp.WBind = WBind;
+	return pox.WBind = WBind;
 });

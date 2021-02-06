@@ -7,7 +7,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PolygonExplorerPlayer</title>
 <script src="../dist/uncompressed/skylark-poxp-all.js"></script>
+<script src="./view.js"></script>
+<script>
+function $(e){return document.getElementById(e)}
+onload = function() {
+	POXP.init(()=>{
+		$("loading").style.display = "none" ;		
+	})
 
+}
+</script>
 <style>
 body,html {
 	margin:0 ;
@@ -32,13 +41,11 @@ canvas {
 	background-color:#222 ;
 	opacity:0.4 ;
 }
-#pui div.b{
-	display:flex ;
-}
 #pui input[type=range] {
 	width:10rem ;
 }
 #pui div.t {
+	float:left;
 	width:3rem ;
 	padding-left:0.2rem ;
 	overflow:hidden ;
@@ -158,18 +165,5 @@ div.pad button:hover {
 <div id=vrbtn></div>
 <canvas id="screen1"></canvas>
 <div id=footer>Made with <a href="http://wakufactory.jp/wgl/pox/ ">PoExE</a></div>
-
-<script>
-function $(e){return document.getElementById(e)}
-(function() {
-	var POXP = skylarkjs.intg.poxp;
-	POXP.init()
-	POXP.load().then(d=>{
-		POXP.set(d.src,d.query)
-		$("loading").style.display = "none" ;		
-	})
-
-})();
-</script>
 </body>
 </html>

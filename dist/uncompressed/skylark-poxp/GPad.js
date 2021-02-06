@@ -1,6 +1,7 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox",
+    "./Device"
+],function(pox,POXPDevice){
 	/**
 	 *	gamepad object 
 	 *	@constructor 
@@ -55,31 +56,37 @@ define([
 				{pressed:false,touched:false},
 				{pressed:false,touched:false}
 			],
-			axes:[0,0,0,0]
+			axes:[0,0]
 		}
 		this.egp = {
 			buttons:[
 				{pressed:false,touched:false},
 				{pressed:false,touched:false}
 			],
-			axes:[0,0,0,0]
+			axes:[0,0]
 		}
 		return ret ;
 	}
 	GPad.prototype.get = function(pad) {
 		var gp 
-		if(POXPDevice) {
+		if(POXPDevice && POXPDevice.WebXR) {
 			this.emu = false 
 			if(POXPDevice.isPresenting && POXPDevice.session.inputSources) {
 			const is = POXPDevice.session.inputSources
-	//		if(is.length>1) {
-	//			console.log(is[0])}
 			for (let i=0;i<=is.length-1;i++) {
 				if (is[i].gamepad && is[i].gamepad.mapping=="xr-standard") {
 					is[i].gamepad.hand = is[i].handedness
 					if (is[i].handedness=="left" && this.idx==1) {gp=is[i].gamepad }
 					if (is[i].handedness=="right" && this.idx==0) {gp=is[i].gamepad }
+
 					if(gp) {
+						let pose = POXPDevice.vrFrame.getPose(is[i].gripSpace,POXPDevice.referenceSpace)
+						if(pose) {
+							gp.pose = {}
+							if(pose.transform.orientation) gp.pose.orientation = [pose.transform.orientation.x,pose.transform.orientation.y,pose.transform.orientation.z,pose.transform.orientation.w]
+							if(pose.transform.position) gp.pose.position =  [pose.transform.position.x,pose.transform.position.y,pose.transform.position.z]
+	//					console.log(pose)
+						}
 						this.conn = true 
 						break 
 					} else this.conn = false 					
@@ -152,11 +159,10 @@ define([
 				{pressed:false,touched:false},
 				{pressed:false,touched:false}
 			],
-			axes:[0,0,0,0]
+			axes:[0,0]
 		}
 		this.egp = gp
 		this.cf = true ;	
 	}
-
-	return poxp.GPad = GPad;
+	return pox.GPad = GPad;
 });

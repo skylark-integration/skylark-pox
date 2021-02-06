@@ -1,13 +1,13 @@
 define([
-    "./poxp"
-],function(poxp){
+    "./pox"
+],function(pox){
 	//mouse and touch event handler
 	var Pointer = function(t,cb) {
 		var self = this ;
 		var touch,gesture,EV_S,EV_E,EV_M ;
 		function pos(ev) {
 			var x,y ;
-			if(touch && ev.touches && ev.touches.length>0) {
+			if(touch && ev.touches.length>0) {
 				x = ev.touches[0].pageX - ev.target.offsetLeft ;
 				y = ev.touches[0].pageY - ev.target.offsetTop ;
 			} else {
@@ -124,8 +124,8 @@ define([
 				cb.gyro({rx:rx,ry:ry,rz:rz,orientation:or}) ;
 			})
 		}
-
 	}
 
-	return poxp.Pointer = Pointer;
+
+	return pox.Pointer = Pointer;
 });
