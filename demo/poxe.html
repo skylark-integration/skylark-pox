@@ -6,22 +6,16 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>PolygonExplorerEditor</title>
-<script src="ga.js"></script>
-<script src="js/WWG.js?2"></script>
-<script src="js/CanvasMatrix.js"></script>
-<script src="js/WWModel.js?2"></script>
-<script src="js/Pointer.js?1"></script>
-<script src="js/WBind.js"></script>
-<script src="js/GPad.js"></script>
-<script src="js/was.js"></script>
-<script src="js/json2canvas.js"></script>
-<script src="js/poxplayer.js?2"></script>
-<script src="js/poxp_cam.js?2"></script>
-<script src="js/poxp_device.js?2"></script>
+<script src="../dist/uncompressed/skylark-poxp-all.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js"></script>
 <script>
 function $(e){return document.getElementById(e)}
-POXE = {} ;
+const PoxPlayer = skylarkjs.intg.pox.Player,
+	  WWModel = skylarkjs.intg.pox.WWModel,
+	  POXPDevice  = skylarkjs.intg.pox.POXPDevice,
+	  CanvasMatrix4 = skylarkjs.intg.pox.CanvasMatrix4;
+
+const POXE = {} ;
 onload = ()=> {
 	POXE.POXP = new PoxPlayer('#screen1',{capture:true}) ;
 	POXE.POXP.setError( POXE.msg) ;
