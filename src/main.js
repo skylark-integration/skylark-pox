@@ -1,7 +1,6 @@
 define([
 	"./pox",
-	"./Player",
-	"./WWModel"
+	"./Player"
 ],function(pox,PoxPlayer){
 	return pox;
 });

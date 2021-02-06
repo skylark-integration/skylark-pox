@@ -6,8 +6,9 @@ define([
 	"./Camera",
 	"./Device",
 	"./WBind",
-	"./WWG"
-],function(pox,CanvasMatrix4,GPad,Pointer,PoxCamera,POXPDevice,WBind,WWG){
+	"./WWG",
+	"./WWModel"
+],function(pox,CanvasMatrix4,GPad,Pointer,PoxCamera,POXPDevice,WBind,WWG,WWModel){
 	//poxplayer.js
 	//  PolygonExplorer Player
 	//   wakufactory.jp
@@ -50,7 +51,13 @@ define([
 			Param.bindInput("camselect",(opt.ui && opt.ui.camselect)?opt.ui.camselect:"#camselect") ;
 			
 			this.pixRatio = 1 
-			this.pox = {can:this.can,wwg:this.wwg,synth:this.synth,poxp:this}
+			this.pox = {
+				can:this.can,
+				wwg:this.wwg,
+				WWModel : WWModel,
+				synth:this.synth,
+				poxp:this
+			}
 			this.eventListener = {}
 
 			if(GPad) {
@@ -363,6 +370,8 @@ define([
 			POX.addModel = (model)=>{ if(this.render) return this.render.addModel(model) }
 			POX.removeModel = (model)=>{ if(this.render) return this.render.removeModel(model) }
 			POX.getModelData = (model)=>{ if(this.render) return this.render.getModelData(model) }
+
+
 		//	this.parseJS(d.m).then((m)=> {
 			if(typeof d.m  == "string") {
 				const m = await this.parseJS(d.m) ;

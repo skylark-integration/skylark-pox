@@ -5,5 +5,5 @@
  * @link https://github.com/skylark-integration/skylark-pox/
  * @license MIT
  */
-define(["./pox","./Player","./WWModel"],function(e,n){return e});
+define(["./pox","./Player"],function(e,n){return e});
 //# sourceMappingURL=sourcemaps/main.js.map
