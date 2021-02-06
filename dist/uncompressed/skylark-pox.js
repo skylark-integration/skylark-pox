@@ -4517,6 +4517,8 @@ define('skylark-pox/Player',[
 				can:this.can,
 				wwg:this.wwg,
 				WWModel : WWModel,
+				CanvasMatrix4 : CanvasMatrix4,
+				Mat4 : CanvasMatrix4,
 				synth:this.synth,
 				poxp:this
 			}
