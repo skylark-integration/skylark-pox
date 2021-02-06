@@ -1,8 +1,8 @@
 /**
- * skylark-poxp - A version of poxp that ported to running on skylarkjs
+ * skylark-pox - A version of pox that ported to running on skylarkjs
  * @author Hudaokeji, Inc.
  * @version v0.9.0
- * @link https://github.com/skylark-integration/skylark-poxp/
+ * @link https://github.com/skylark-integration/skylark-pox/
  * @license MIT
  */
 define(["./pox","./Player","./WWModel"],function(e,n){return e});

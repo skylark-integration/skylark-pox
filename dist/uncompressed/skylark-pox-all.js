@@ -1,8 +1,8 @@
 /**
- * skylark-poxp - A version of poxp that ported to running on skylarkjs
+ * skylark-pox - A version of pox that ported to running on skylarkjs
  * @author Hudaokeji, Inc.
  * @version v0.9.0
- * @link https://github.com/skylark-integration/skylark-poxp/
+ * @link https://github.com/skylark-integration/skylark-pox/
  * @license MIT
  */
 (function(factory,globals) {
@@ -128,7 +128,7 @@ define('skylark-langx/skylark',[
 	return ns;
 });
 
-define('skylark-poxp/pox',[
+define('skylark-pox/pox',[
 	"skylark-langx/skylark"
 ],function(skylark){
 	const  POXP = {} ;
@@ -165,7 +165,7 @@ define('skylark-poxp/pox',[
 
 	return skylark.attach("intg.pox",POXP);
 });
-define('skylark-poxp/CanvasMatrix4',[
+define('skylark-pox/CanvasMatrix4',[
     "./pox"
 ],function(pox){
     /*
@@ -995,7 +995,7 @@ define('skylark-poxp/CanvasMatrix4',[
     	
 
 
-define('skylark-poxp/Vector',[
+define('skylark-pox/Vector',[
     "./pox"
 ],function(pox){
 	class Vector extends Array {
@@ -1121,7 +1121,7 @@ define('skylark-poxp/Vector',[
 
 	return pox.Vector = Vector; 
 });
-define('skylark-poxp/Device',[
+define('skylark-pox/Device',[
     "./pox",
     "./Vector"
 ],function(pox,Vector){
@@ -1327,7 +1327,7 @@ define('skylark-poxp/Device',[
 
 	return pox.Device = Device;
 });
-define('skylark-poxp/GPad',[
+define('skylark-pox/GPad',[
     "./pox",
     "./Device"
 ],function(pox,POXPDevice){
@@ -1495,7 +1495,7 @@ define('skylark-poxp/GPad',[
 	}
 	return pox.GPad = GPad;
 });
-define('skylark-poxp/Pointer',[
+define('skylark-pox/Pointer',[
     "./pox"
 ],function(pox){
 	//mouse and touch event handler
@@ -1627,7 +1627,7 @@ define('skylark-poxp/Pointer',[
 	return pox.Pointer = Pointer;
 });
 
-define('skylark-poxp/Camera',[
+define('skylark-pox/Camera',[
     "./pox",
     "./CanvasMatrix4"
 ],function(pox,CanvasMatrix4){
@@ -2115,7 +2115,7 @@ define('skylark-poxp/Camera',[
 
 	return pox.Camera = Camera;
 });
-define('skylark-poxp/WBind',[
+define('skylark-pox/WBind',[
     "./pox"
 ],function(pox){
 	//WBind 
@@ -2568,7 +2568,7 @@ define('skylark-poxp/WBind',[
 	return pox.WBind = WBind;
 });
 
-define('skylark-poxp/WWG',[
+define('skylark-pox/WWG',[
     "./pox"
 ],function(pox){
 	//WWG Simple WebGL wrapper library
@@ -3509,7 +3509,7 @@ define('skylark-poxp/WWG',[
 	}
 	return pox.WWG = WWG;
 });
-define('skylark-poxp/Player',[
+define('skylark-pox/Player',[
 	"./pox",
 	"./CanvasMatrix4",
 	"./GPad",
@@ -4333,7 +4333,7 @@ define('skylark-poxp/Player',[
 });
 
 
-define('skylark-poxp/WWModel',[
+define('skylark-pox/WWModel',[
     "./pox",
     "./CanvasMatrix4"
 ],function(pox,CanvasMatrix4){
@@ -5326,15 +5326,15 @@ define('skylark-poxp/WWModel',[
 });
 
 
-define('skylark-poxp/main',[
+define('skylark-pox/main',[
 	"./pox",
 	"./Player",
 	"./WWModel"
 ],function(pox,PoxPlayer){
 	return pox;
 });
-define('skylark-poxp', ['skylark-poxp/main'], function (main) { return main; });
+define('skylark-pox', ['skylark-pox/main'], function (main) { return main; });
 
 
 },this);
-//# sourceMappingURL=sourcemaps/skylark-poxp-all.js.map
+//# sourceMappingURL=sourcemaps/skylark-pox-all.js.map

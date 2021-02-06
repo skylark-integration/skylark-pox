@@ -1,23 +1,23 @@
 {
-  "name": "skylark-poxp",
-  "description": "A version of poxp that ported to running on skylarkjs",
+  "name": "skylark-pox",
+  "description": "A version of pox that ported to running on skylarkjs",
   "version": "0.9.0",
   "keywords": [
     "skylark",
     "ui",
     "bootstrap4"
   ],
-  "homepage": "https://github.com/skylark-integration/skylark-poxp/",
+  "homepage": "https://github.com/skylark-integration/skylark-pox/",
   "author": "Hudaokeji, Inc.",
   "scripts": {
     "build": "slib build ."
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/skylark-integration/skylark-poxp.git"
+    "url": "https://github.com/skylark-integration/skylark-pox.git"
   },
   "bugs": {
-    "url": "https://github.com/skylark-integration/skylark-poxp/issues"
+    "url": "https://github.com/skylark-integration/skylark-pox/issues"
   },
   "license": "MIT",
   "dependencies": {
